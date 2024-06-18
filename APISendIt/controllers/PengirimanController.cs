@@ -68,7 +68,7 @@ namespace APISendIt.Controllers
             return Ok();
         }
 
-        // PUT api/<PengirimanController>/5
+        // EDIT
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Pengiriman pengiriman)
         {
