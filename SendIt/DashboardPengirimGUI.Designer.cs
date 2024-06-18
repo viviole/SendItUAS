@@ -70,6 +70,7 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // labelFitur
             // 
@@ -103,7 +104,6 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.informasiButton);
             this.Controls.Add(this.kirimButton);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "DashboardPengirimGUI";
             this.Text = "Dashboard";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

@@ -26,5 +26,10 @@ namespace SendIt
             infoKirim.Show();
             this.Hide();
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
