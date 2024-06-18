@@ -30,9 +30,10 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.sedangDipickupButton = new System.Windows.Forms.Button();
+            this.sedangDikirimButton = new System.Windows.Forms.Button();
+            this.sudahDiterimaButton = new System.Windows.Forms.Button();
+            this.Back = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -50,50 +51,61 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(289, 112);
+            this.listBox1.Location = new System.Drawing.Point(161, 112);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(230, 196);
+            this.listBox1.Size = new System.Drawing.Size(488, 196);
             this.listBox1.TabIndex = 1;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
-            // button1
+            // sedangDipickupButton
             // 
-            this.button1.Location = new System.Drawing.Point(161, 333);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(136, 48);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Sedang Dipickup";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.sedangDipickupButton.Location = new System.Drawing.Point(161, 333);
+            this.sedangDipickupButton.Name = "sedangDipickupButton";
+            this.sedangDipickupButton.Size = new System.Drawing.Size(136, 48);
+            this.sedangDipickupButton.TabIndex = 2;
+            this.sedangDipickupButton.Text = "Sedang Dipickup";
+            this.sedangDipickupButton.UseVisualStyleBackColor = true;
+            this.sedangDipickupButton.Click += new System.EventHandler(this.sedangDipickupButton_Click);
             // 
-            // button2
+            // sedangDikirimButton
             // 
-            this.button2.Location = new System.Drawing.Point(340, 333);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(136, 48);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Sedang Dikirim";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.sedangDikirimButton.Location = new System.Drawing.Point(340, 333);
+            this.sedangDikirimButton.Name = "sedangDikirimButton";
+            this.sedangDikirimButton.Size = new System.Drawing.Size(136, 48);
+            this.sedangDikirimButton.TabIndex = 3;
+            this.sedangDikirimButton.Text = "Sedang Dikirim";
+            this.sedangDikirimButton.UseVisualStyleBackColor = true;
+            this.sedangDikirimButton.Click += new System.EventHandler(this.sedangDikirimButton_Click);
             // 
-            // button3
+            // sudahDiterimaButton
             // 
-            this.button3.Location = new System.Drawing.Point(513, 333);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(136, 48);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Sudah Diterima";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.sudahDiterimaButton.Location = new System.Drawing.Point(513, 333);
+            this.sudahDiterimaButton.Name = "sudahDiterimaButton";
+            this.sudahDiterimaButton.Size = new System.Drawing.Size(136, 48);
+            this.sudahDiterimaButton.TabIndex = 4;
+            this.sudahDiterimaButton.Text = "Sudah Diterima";
+            this.sudahDiterimaButton.UseVisualStyleBackColor = true;
+            this.sudahDiterimaButton.Click += new System.EventHandler(this.sudahDiterimaButton_Click);
+            // 
+            // Back
+            // 
+            this.Back.Location = new System.Drawing.Point(30, 31);
+            this.Back.Name = "Back";
+            this.Back.Size = new System.Drawing.Size(108, 50);
+            this.Back.TabIndex = 5;
+            this.Back.Text = "Back";
+            this.Back.UseVisualStyleBackColor = true;
+            this.Back.Click += new System.EventHandler(this.Back_Click);
             // 
             // KurirDetailPesanan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Back);
+            this.Controls.Add(this.sudahDiterimaButton);
+            this.Controls.Add(this.sedangDikirimButton);
+            this.Controls.Add(this.sedangDipickupButton);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label1);
             this.Name = "KurirDetailPesanan";
@@ -107,8 +119,9 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button sedangDipickupButton;
+        private System.Windows.Forms.Button sedangDikirimButton;
+        private System.Windows.Forms.Button sudahDiterimaButton;
+        private System.Windows.Forms.Button Back;
     }
 }
