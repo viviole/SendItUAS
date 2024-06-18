@@ -6,24 +6,24 @@ namespace APISendIt.controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PengirimController : ControllerBase
+    public class PengirimControllerAPI : ControllerBase
     {
-        public static List<Pengirim> PenggunaData = new List<Pengirim>
+        public static List<PengirimAPI> PenggunaData = new List<PengirimAPI>
         {
-            new Pengirim("Budi Yanto", "budiyanto", "password123", "27"),
-            new Pengirim("Bob Sadino", "bobsadino", "password456", "55"),
-            new Pengirim("Jonny Cage", "jonnycage", "password789", "39")
+            new PengirimAPI("Budi Yanto", "budiyanto", "password123", "27"),
+            new PengirimAPI("Bob Sadino", "bobsadino", "password456", "55"),
+            new PengirimAPI("Jonny Cage", "jonnycage", "password789", "39")
         };
 
         [HttpGet]
-        public IEnumerable<Pengirim> Get()
+        public IEnumerable<PengirimAPI> Get()
         {
             Debug.Assert(PenggunaData != null, "Data Pengirim tidak boleh kosong");
             return PenggunaData;
         }
 
         [HttpGet("{id}")]
-        public Pengirim? Get(int id)
+        public PengirimAPI? Get(int id)
         {
             Debug.Assert(id > 0, "ID haruslah bilangan bulat positif");
 
@@ -38,15 +38,21 @@ namespace APISendIt.controllers
             return null;
         }
 
-        [HttpPost]
-        public void Post([FromBody] Pengirim value)
+        [HttpPost("registerPengirim")]
+        public IActionResult RegisterPengirim([FromBody] PengirimAPI pengirim)
         {
-            Debug.Assert(value != null, "Nilai tidak boleh kosong");
-            PenggunaData.Add(value);
+            if (pengirim == null)
+            {
+                return BadRequest("Invalid Pengirim data");
+            }
+
+            // Perform the registration logic
+            PenggunaData.Add(pengirim);
+            return Ok();
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Pengirim value)
+        public void Put(int id, [FromBody] PengirimAPI value)
         {
             Debug.Assert(id > 0, "ID haruslah bilangan bulat positif");
             Debug.Assert(value != null, "Nilai tidak boleh kosong");

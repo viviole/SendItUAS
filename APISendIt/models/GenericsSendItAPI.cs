@@ -1,12 +1,12 @@
 ﻿namespace APISendIt.models
 {
-    public class GenericsSendIt<T>
+    public class GenericsSendItAPI<T>
     {
         public int Id { get; set; }
         public T KurirID { get; set; }
         public T PengirimID { get; set; }
 
-        public GenericsSendIt(int Id, T KurirID, T PengirimID)
+        public GenericsSendItAPI(int Id, T KurirID, T PengirimID)
         {
             this.Id = Id;
             KurirID = KurirID;

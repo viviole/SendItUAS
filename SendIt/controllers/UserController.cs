@@ -12,10 +12,20 @@ namespace SendIt.controllers
     internal class UserController
     {
         private static readonly HttpClient client = new HttpClient();
-        private static string urlAPI = "http://localhost:5069/api/users";
-
+        static string urlPengirim = "http://localhost:5069/api/Pengirim";
+        static string urlKurir = "http://localhost:5069/api/Kurir";
+        static Role role;
+        static string urlAPI;
         public static async Task<List<string>> GetUsersAsync()
         {
+            if (role == Role.Kurir)
+            {
+                urlAPI = urlKurir;
+            }
+            else
+            {
+                urlAPI = urlPengirim;
+            }
             List<string> userName = new List<string>();
             try
             {
@@ -27,7 +37,7 @@ namespace SendIt.controllers
                     foreach (Users user in userData)
                     {
                         userName.Add(user.UserName);
-                    }                        
+                    }
                     return userName;
                 }
                 else
