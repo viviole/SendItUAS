@@ -4,6 +4,7 @@ using System.Linq;
 using APISendIt.models;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
+using System.Text;
 
 namespace APISendIt.Controllers
 {
@@ -31,6 +32,20 @@ namespace APISendIt.Controllers
         public IEnumerable<Pengiriman> Get()
         {
             return pengirimanList;
+        }
+
+        // PUT method to update the status
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Pengiriman pengiriman)
+        {
+            var existingPengiriman = pengirimanList.FirstOrDefault(p => p.Id == id);
+            if (existingPengiriman == null)
+            {
+                return NotFound();
+            }
+
+            existingPengiriman.Status = pengiriman.Status;
+            return NoContent();
         }
 
         // GET api/<PengirimanController>/5
@@ -66,27 +81,6 @@ namespace APISendIt.Controllers
             _logger.LogInformation($"Received new data: {JsonConvert.SerializeObject(pengiriman)}");
 
             return Ok();
-        }
-
-        // EDIT
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Pengiriman pengiriman)
-        {
-            var existingPengiriman = pengirimanList.FirstOrDefault(p => p.Id == id);
-            if (existingPengiriman == null)
-            {
-                return NotFound();
-            }
-            existingPengiriman.Nama = pengiriman.Nama;
-            existingPengiriman.Berat = pengiriman.Berat;
-            existingPengiriman.AlamatTujuan = pengiriman.AlamatTujuan;
-            existingPengiriman.Jarak = pengiriman.Jarak;
-            existingPengiriman.NomorTelepon = pengiriman.NomorTelepon;
-            existingPengiriman.MetodePembayaran = pengiriman.MetodePembayaran;
-            existingPengiriman.Harga = pengiriman.Harga;
-            existingPengiriman.Status = pengiriman.Status;
-            existingPengiriman.IdKurir = pengiriman.IdKurir;
-            return NoContent();
         }
 
         // DELETE api/<PengirimanController>/5

@@ -40,7 +40,7 @@ namespace SendIt
                     this.Hide();
                 }else
                 {
-                    DashboardKurirGUI dashboardKur = new DashboardKurirGUI();
+                    KurirDetailPesanan dashboardKur = new KurirDetailPesanan();
                     dashboardKur.Show();
                     this.Hide();
                 }

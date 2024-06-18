@@ -31,5 +31,19 @@ namespace SendIt
         {
 
         }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+
+            // Hide the current form
+            this.Hide();
+
+            // Show the login form
+            LoginPage loginForm = new LoginPage();
+            loginForm.Show();
+
+            // Close the current form
+            this.Close();
+        }
     }
 }
