@@ -40,9 +40,10 @@
             // 
             // kirimButton
             // 
-            this.kirimButton.Location = new System.Drawing.Point(113, 285);
+            this.kirimButton.Location = new System.Drawing.Point(98, 249);
+            this.kirimButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.kirimButton.Name = "kirimButton";
-            this.kirimButton.Size = new System.Drawing.Size(194, 63);
+            this.kirimButton.Size = new System.Drawing.Size(161, 51);
             this.kirimButton.TabIndex = 0;
             this.kirimButton.Text = "Kirim Barang";
             this.kirimButton.UseVisualStyleBackColor = true;
@@ -50,9 +51,10 @@
             // 
             // informasiButton
             // 
-            this.informasiButton.Location = new System.Drawing.Point(480, 285);
+            this.informasiButton.Location = new System.Drawing.Point(373, 249);
+            this.informasiButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.informasiButton.Name = "informasiButton";
-            this.informasiButton.Size = new System.Drawing.Size(194, 63);
+            this.informasiButton.Size = new System.Drawing.Size(161, 51);
             this.informasiButton.TabIndex = 1;
             this.informasiButton.Text = "Informasi Pengiriman";
             this.informasiButton.UseVisualStyleBackColor = true;
@@ -61,7 +63,8 @@
             // 
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(497, 91);
+            this.pictureBox2.Location = new System.Drawing.Point(373, 74);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(161, 161);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -73,16 +76,18 @@
             // 
             this.labelFitur.AutoSize = true;
             this.labelFitur.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFitur.Location = new System.Drawing.Point(356, 39);
+            this.labelFitur.Location = new System.Drawing.Point(267, 32);
+            this.labelFitur.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelFitur.Name = "labelFitur";
-            this.labelFitur.Size = new System.Drawing.Size(71, 32);
+            this.labelFitur.Size = new System.Drawing.Size(55, 26);
             this.labelFitur.TabIndex = 4;
             this.labelFitur.Text = "Fitur";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(130, 91);
+            this.pictureBox1.Location = new System.Drawing.Point(98, 74);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(161, 161);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -91,9 +96,9 @@
             // 
             // DashboardPengirimGUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelFitur);
             this.Controls.Add(this.pictureBox2);
