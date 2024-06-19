@@ -6,6 +6,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+
 
 namespace SendIt.controllers
 {
@@ -16,57 +19,14 @@ namespace SendIt.controllers
 
         HttpClient client = new HttpClient();
 
-        public async Task<Users> AunthenticateUser(string username, string password, Role role)
+        private string HashPassword(string password, string salt)
         {
-
-            string urlAPI;
-
-            if (role == Role.Kurir)
-            {
-                urlAPI = urlKurir;
-            }
-            else 
-            {
-                urlAPI = urlPengirim;
-            }
-
-            
-            try 
-            {
-                HttpResponseMessage response = await client.GetAsync(urlAPI);
-                Console.Write(response);
-                if (response != null && response.IsSuccessStatusCode)
-                {
-                    Users loggedInUser = null;
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine(jsonResponse);
-                    Users[] result = JsonConvert.DeserializeObject<Users[]>(jsonResponse);
-                    Console.WriteLine(result);
-                    foreach (Users users in result)
-                    {
-                        if (users.UserName == username && users.Password == password)
-                        {
-                            if (loggedInUser != null)
-                            {
-                                Console.WriteLine("Apakah tidak ada serius?");
-                                return null;
-                            }
-                            loggedInUser = users;
-                        }
-                    }
-                    return loggedInUser;
-                }
-                return null;
-            }
-            catch (Exception ex) {
-                Console.WriteLine(ex.Message.ToString());
-                return null;
-            }
+            var pbkdf2 = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt), 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+            return Convert.ToBase64String(hash);
         }
 
-        
-
-        public async Task<bool> RegisterUser(string namaLengkap, string username, string password, string umur, Role role)
+        public async Task<Users> AunthenticateUser(string username, string password, Role role)
         {
 
             string urlAPI;
@@ -82,35 +42,82 @@ namespace SendIt.controllers
 
             try
             {
+                HttpResponseMessage response = await client.GetAsync(urlAPI);
+                Console.Write(response);
+                if (response != null && response.IsSuccessStatusCode)
+                {
+                    Users loggedInUser = null;
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    Users[] result = JsonConvert.DeserializeObject<Users[]>(jsonResponse);
+
+                    foreach (Users users in result)
+                    {
+                        string inputPasswordHash = HashPassword(password, users.Salt);
+                        if (users.UserName == username && users.PasswordHash == inputPasswordHash)
+                        {
+                            if (loggedInUser != null)
+                            {
+                                return null;
+                            }
+                            loggedInUser = users;
+                        }
+                    }
+                    return loggedInUser;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return null;
+            }
+        }
+
+
+
+        public async Task<bool> RegisterUser(string namaLengkap, string username, string password, string umur, Role role)
+        {
+            string urlAPI = role == Role.Kurir ? urlKurir + "/registerKurir" : urlPengirim + "/registerPengirim";
+
+            try
+            {
                 List<string> duplicatedUsername = await UserController.GetUsersAsync();
 
-                foreach (string name in duplicatedUsername) 
+                if (duplicatedUsername.Contains(username))
                 {
-                    if (name == username) 
-                    {
-                        Console.WriteLine("Username already exists");
-                        return false;
-                    }
+                    return false;
                 }
 
-                Users newUser = new Users(namaLengkap, username, password, umur)
+                // Create user object
+                Users newUser;
+                if (role == Role.Kurir)
                 {
-                    Role = role
-                };
-                string jsonContent = JsonConvert.SerializeObject(newUser);
-                StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                    newUser = new Kurir(namaLengkap, username, password, umur);
+                }
+                else
+                {
+                    newUser = new Pengirim(namaLengkap, username, password, umur);
+                }
 
+                // Serialize object to JSON
+                string jsonContent = JsonConvert.SerializeObject(newUser);
+                Console.WriteLine("JSON Content: " + jsonContent);
+
+                // Send POST request
+                StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(urlAPI, content);
+
+                string responseContent = await response.Content.ReadAsStringAsync();
 
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Exception: " + ex.Message);
                 return false;
             }
         }
-
-
     }
 }
+
+

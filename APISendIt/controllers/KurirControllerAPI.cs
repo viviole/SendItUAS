@@ -7,24 +7,24 @@ namespace APISendIt.controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class KurirController : ControllerBase
+    public class KurirControllerAPI : ControllerBase
     {
-        public static List<Kurir> KurirData = new List<Kurir>
+        public static List<KurirAPI> KurirData = new List<KurirAPI>
         {
-            new Kurir("Hasan Pane", "NPane", "password123", "19"),
-            new Kurir("Marjauza Naswansyah", "MNaswan", "password456", "20"),
-            new Kurir("Nizar Rasyiid", "NRasyiid", "password789", "21")
+            new KurirAPI("Hasan Pane", "NPane", "password123", "19"),
+            new KurirAPI("Marjauza Naswansyah", "MNaswan", "password456", "20"),
+            new KurirAPI("Nizar Rasyiid", "NRasyiid", "password789", "21")
         };
 
         [HttpGet]
-        public IEnumerable<Kurir> Get()
+        public IEnumerable<KurirAPI> Get()
         {
             Debug.Assert(KurirData != null, "Data Kurir tidak boleh kosong");
             return KurirData;
         }
 
         [HttpGet("{id}")]
-        public Kurir? Get(int id)
+        public KurirAPI? Get(int id)
         {
             Debug.Assert(id > 0, "ID haruslah bilangan bulat positif");
 
@@ -39,17 +39,22 @@ namespace APISendIt.controllers
             return null;
         }
 
-        [HttpPost]
-        public void Post([FromBody] Kurir value)
+        [HttpPost("registerKurir")]
+        public IActionResult RegisterKurir([FromBody] KurirAPI kurir)
         {
-            Debug.Assert(value != null, "Data Kurir tidak boleh kosong");
+            if (kurir == null)
+            {
+                return BadRequest("Invalid Kurir data");
+            }
 
-            KurirData.Add(value);
+            // Perform the registration logic
+            KurirData.Add(kurir);
+            return Ok();
         }
 
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Kurir value)
+        public void Put(int id, [FromBody] KurirAPI value)
         {
             Debug.Assert(id > 0, "ID haruslah bilangan bulat positif");
             Debug.Assert(value != null, "Data Kurir tidak boleh kosong");
