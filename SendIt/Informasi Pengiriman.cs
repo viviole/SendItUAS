@@ -176,8 +176,15 @@ namespace SendIt
         }
 
         private void hargaField_TextChanged(object sender, EventArgs e)
-        {
+        {   
 
+        }
+
+        private void Back_Click(object sender, EventArgs e)
+        {
+            DashboardPengirimGUI dashboardPeng = new DashboardPengirimGUI(_loggedInUser);
+            dashboardPeng.Show();
+            this.Hide();
         }
     }
 }
