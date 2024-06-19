@@ -74,6 +74,7 @@
             this.inputPassword.Name = "inputPassword";
             this.inputPassword.Size = new System.Drawing.Size(230, 22);
             this.inputPassword.TabIndex = 17;
+            this.inputPassword.TextChanged += new System.EventHandler(this.inputPassword_TextChanged_1);
             // 
             // inputUsername
             // 
@@ -187,6 +188,7 @@
             // errorLabel
             // 
             this.errorLabel.AutoSize = true;
+            this.errorLabel.ForeColor = System.Drawing.Color.Red;
             this.errorLabel.Location = new System.Drawing.Point(390, 258);
             this.errorLabel.Name = "errorLabel";
             this.errorLabel.Size = new System.Drawing.Size(0, 16);

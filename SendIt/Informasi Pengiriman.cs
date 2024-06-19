@@ -168,13 +168,66 @@ namespace SendIt
         {
 
         }
-
-        private void itemWeightInput_TextChanged(object sender, EventArgs e)
+        private void ValidateJarak()
         {
-            // Validasi input
+
+        }
+
+        private bool isWeightValid = true;
+        private bool isDistanceValid = true;
+
+        private void CalculatePrice()
+        {
+            // Reset the flags before validation
+            bool previousWeightValid = isWeightValid;
+            bool previousDistanceValid = isDistanceValid;
+
+            isWeightValid = true;
+            isDistanceValid = true;
+
+            // Pastikan input tidak kosong sebelum mencoba validasi
+            if (string.IsNullOrWhiteSpace(itemWeightInput.Text) || string.IsNullOrWhiteSpace(itemDistanceInput.Text))
+            {
+                hargaField.Text = string.Empty;
+                return;
+            }
+
+            // Validasi input berat
             if (!int.TryParse(itemWeightInput.Text, out int berat))
             {
+                isWeightValid = false;
+            }
+            else if (berat > 20)
+            {
+                isWeightValid = false;
+                MessageBox.Show("Berat tidak boleh lebih dari 20.");
+            }
+
+            // Validasi input jarak
+            if (!int.TryParse(itemDistanceInput.Text, out int jarak))
+            {
+                isDistanceValid = false;
+            }
+            else if (jarak > 7)
+            {
+                isDistanceValid = false;
+                MessageBox.Show("Jarak tidak boleh lebih dari 7.");
+            }
+
+            // Tampilkan pesan kesalahan jika ada input yang tidak valid
+            if (!isWeightValid && previousWeightValid)
+            {
                 MessageBox.Show("Berat harus angka.");
+            }
+
+            if (!isDistanceValid && previousDistanceValid)
+            {
+                MessageBox.Show("Jarak harus angka.");
+            }
+
+            if (!isWeightValid || !isDistanceValid)
+            {
+                hargaField.Text = string.Empty;
                 return;
             }
 
@@ -182,10 +235,14 @@ namespace SendIt
             int hargaDasar = 10000;
             int biayaPerKilometer = 1000;
             int biayaPerKilogram = 500;
-            int jarak = 0; // Atau dapat diambil dari input jarak
             _harga = hargaDasar + (jarak * biayaPerKilometer) + (berat * biayaPerKilogram);
+
             // Menampilkan harga
             hargaField.Text = _harga.ToString();
+        }
+        private void itemWeightInput_TextChanged(object sender, EventArgs e)
+        {
+            CalculatePrice();
         }
 
 
@@ -196,7 +253,7 @@ namespace SendIt
 
         private void itemDistanceInput_TextChanged(object sender, EventArgs e)
         {
-
+            CalculatePrice() ;
         }
 
         private void receiverPhoneInput_TextChanged(object sender, EventArgs e)

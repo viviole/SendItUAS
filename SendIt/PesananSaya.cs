@@ -45,13 +45,13 @@ namespace SendIt
         {
             LoadPengirimanData();
         }
-        private async void LoadPengirimanData()
+        private async Task LoadPengirimanData()
         {
             try
             {
-                int _idUser = _loggedInUser.Id;
-                HttpResponseMessage response = await _httpClient.GetAsync($"pengiriman?idPengirim={_idUser}");
-               
+                int idPengirim = _loggedInUser.Id;
+                HttpResponseMessage response = await _httpClient.GetAsync($"pengiriman?idPengirim={idPengirim}");
+
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
@@ -59,11 +59,13 @@ namespace SendIt
 
                     if (pengirimanList != null && pengirimanList.Count > 0)
                     {
-                        // Ambil pengiriman pertama sebagai contoh
-                        var pengiriman = pengirimanList.First();
-                        if (pengiriman.IdPengirim == _idUser)
+                        // Di sini, Anda harus menemukan pengiriman yang sesuai dengan _loggedInUser.Id
+                        // Misalnya, Anda bisa mencari pengiriman dengan ID pengirim yang sesuai
+                        var pengiriman = pengirimanList.FirstOrDefault(p => p.IdPengirim == idPengirim);
+
+                        if (pengiriman != null)
                         {
-                            // Tampilkan data di label
+                            // Menampilkan data di label-label
                             OrderIdLabel.Text = pengiriman.Id.ToString();
                             namaPenerimaLabel.Text = pengiriman.Nama;
                             alamatTujuanLabel.Text = pengiriman.AlamatTujuan;
@@ -76,7 +78,10 @@ namespace SendIt
                             HargaLabel.Text = pengiriman.Harga.ToString();
                             idKurirLabel.Text = pengiriman.IdKurir.ToString();
                         }
-                      
+                        else
+                        {
+                            MessageBox.Show($"Tidak ada data pengiriman untuk pengirim dengan ID: {idPengirim}");
+                        }
                     }
                     else
                     {

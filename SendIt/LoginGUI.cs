@@ -40,7 +40,7 @@ namespace SendIt
                 }
                 else
                 {
-                    KurirDetailPesanan dashboardKur = new KurirDetailPesanan();
+                    DashboardKurirGUI dashboardKur = new DashboardKurirGUI();
                     dashboardKur.Show();
                     this.Hide();
                 }
@@ -66,6 +66,16 @@ namespace SendIt
         private void inputUsername_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void inputPassword_TextChanged(object sender, EventArgs e)
+        {
+            inputPassword.UseSystemPasswordChar = true;
         }
     }
 }

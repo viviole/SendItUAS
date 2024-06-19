@@ -13,7 +13,7 @@ namespace APISendIt.controllers
         {
             new KurirAPI("Hasan Pane", "NPane", "password123", "19"),
             new KurirAPI("Marjauza Naswansyah", "MNaswan", "password456", "20"),
-            new KurirAPI("Nizar Rasyiid", "NRasyiid", "password789", "21")
+            new KurirAPI("Nizar Rasyiid", " ", "password789", "21")
         };
 
         [HttpGet]

@@ -32,6 +32,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.jumlahPesananLabel = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,6 +45,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label1
             // 
@@ -60,12 +62,22 @@
             // 
             this.jumlahPesananLabel.AutoSize = true;
             this.jumlahPesananLabel.BackColor = System.Drawing.Color.White;
-            this.jumlahPesananLabel.Location = new System.Drawing.Point(504, 217);
+            this.jumlahPesananLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.jumlahPesananLabel.Location = new System.Drawing.Point(365, 319);
             this.jumlahPesananLabel.Name = "jumlahPesananLabel";
-            this.jumlahPesananLabel.Size = new System.Drawing.Size(14, 16);
+            this.jumlahPesananLabel.Size = new System.Drawing.Size(18, 20);
             this.jumlahPesananLabel.TabIndex = 2;
             this.jumlahPesananLabel.Text = "0";
-            this.jumlahPesananLabel.Click += new System.EventHandler(this.label2_Click);
+            this.jumlahPesananLabel.Click += new System.EventHandler(this.jumlahPesananLabel_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(208, 167);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(331, 118);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // DashboardKurirGUI
             // 
@@ -75,6 +87,7 @@
             this.Controls.Add(this.jumlahPesananLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.button1);
             this.Name = "DashboardKurirGUI";
             this.Text = "DashboardKurir";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -88,5 +101,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label jumlahPesananLabel;
+        private System.Windows.Forms.Button button1;
     }
 }

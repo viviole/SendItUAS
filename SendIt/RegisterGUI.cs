@@ -77,6 +77,7 @@ namespace SendIt
                 //string namaLengkap, string username, string password, string umur, Role role
                 if (regisCondition == true)
                 {
+                    MessageBox.Show("Akun anda berhasil register!");
                     LoginPage login = new LoginPage();
                     login.Show();
                     this.Hide();
@@ -101,6 +102,11 @@ namespace SendIt
         }
 
         private void inputPassword_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void inputPassword_TextChanged_1(object sender, EventArgs e)
         {
             inputPassword.UseSystemPasswordChar = true;
         }

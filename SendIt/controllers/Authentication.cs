@@ -80,10 +80,11 @@ namespace SendIt.controllers
 
             try
             {
-                List<string> duplicatedUsername = await UserController.GetUsersAsync();
+                List<string> duplicatedUsernames = await GetUsersAsync(role);
 
-                if (duplicatedUsername.Contains(username))
+                if (duplicatedUsernames.Contains(username))
                 {
+                    Console.WriteLine("Username already exists");
                     return false;
                 }
 
@@ -114,6 +115,33 @@ namespace SendIt.controllers
             {
                 Console.WriteLine("Exception: " + ex.Message);
                 return false;
+            }
+        }
+
+        private async Task<List<string>> GetUsersAsync(Role role)
+        {
+            string urlAPI = role == Role.Kurir ? urlKurir : urlPengirim;
+
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(urlAPI);
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    Users[] result = JsonConvert.DeserializeObject<Users[]>(jsonResponse);
+                    List<string> usernames = result.Select(u => u.UserName).ToList();
+                    return usernames;
+                }
+                else
+                {
+                    Console.WriteLine("Failed to retrieve users from API");
+                    return new List<string>();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception while fetching users: " + ex.Message);
+                return new List<string>();
             }
         }
     }

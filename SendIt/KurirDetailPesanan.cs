@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SendIt.models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,9 +12,12 @@ namespace SendIt
 {
     public partial class KurirDetailPesanan : Form
     {
-        public KurirDetailPesanan()
+        private Users _loggedInUser;
+
+        public KurirDetailPesanan(Users loggedInUser)
         {
             InitializeComponent();
+            _loggedInUser = loggedInUser;
             LoadOrders();
         }
 
@@ -33,7 +37,7 @@ namespace SendIt
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    HttpResponseMessage response = await client.GetAsync("https://localhost:7150/api/Pengiriman");
+                    HttpResponseMessage response = await client.GetAsync($"https://localhost:7150/api/Pengiriman?idKurir={_loggedInUser.Id}");
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -67,48 +71,32 @@ namespace SendIt
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    // Get the selected order from listbox
-                    string selectedOrder = listBox1.SelectedItem?.ToString();
-                    if (selectedOrder != null)
+                    HttpResponseMessage getOrderResponse = await client.GetAsync($"https://localhost:7150/api/Pengiriman/{orderId}");
+
+                    if (getOrderResponse.IsSuccessStatusCode)
                     {
-                        // Assuming the format is "Order ID: {order.Id}, Nama: {order.Nama}, Berat: {order.Berat}, Alamat: {order.AlamatTujuan}"
-                        string selectedOrderId = selectedOrder.Split(',')[0].Trim().Replace("Order ID: ", "");
+                        string getOrderResponseBody = await getOrderResponse.Content.ReadAsStringAsync();
+                        Pengiriman order = JsonConvert.DeserializeObject<Pengiriman>(getOrderResponseBody);
 
-                        // Get the existing order details from the API
-                        HttpResponseMessage getOrderResponse = await client.GetAsync($"https://localhost:7150/api/Pengiriman/{selectedOrderId}");
+                        order.Status = newStatus;
 
-                        if (getOrderResponse.IsSuccessStatusCode)
+                        var content = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8, "application/json");
+                        HttpResponseMessage updateResponse = await client.PutAsync($"https://localhost:7150/api/Pengiriman/{orderId}", content);
+
+                        if (updateResponse.IsSuccessStatusCode)
                         {
-                            string getOrderResponseBody = await getOrderResponse.Content.ReadAsStringAsync();
-                            Pengiriman order = JsonConvert.DeserializeObject<Pengiriman>(getOrderResponseBody);
-
-                            // Update the status
-                            order.Status = newStatus;
-
-                            // Send the updated order back to the server
-                            var content = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8, "application/json");
-                            HttpResponseMessage updateResponse = await client.PutAsync($"https://localhost:7150/api/Pengiriman/{selectedOrderId}", content);
-
-                            if (updateResponse.IsSuccessStatusCode)
-                            {
-                                // Reload orders after successful update
-                                LoadOrders();
-                                MessageBox.Show("Status berhasil diperbarui!");
-                            }
-                            else
-                            {
-                                string errorMessage = await updateResponse.Content.ReadAsStringAsync();
-                                MessageBox.Show($"Error: Unable to update order status. Status Code: {updateResponse.StatusCode}. {errorMessage}");
-                            }
+                            LoadOrders(); // Reload orders after successful update
+                            MessageBox.Show("Status berhasil diperbarui!");
                         }
                         else
                         {
-                            MessageBox.Show($"Error: Unable to fetch order details. Status Code: {getOrderResponse.StatusCode}");
+                            string errorMessage = await updateResponse.Content.ReadAsStringAsync();
+                            MessageBox.Show($"Error: Unable to update order status. Status Code: {updateResponse.StatusCode}. {errorMessage}");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Please select an order to update");
+                        MessageBox.Show($"Error: Unable to fetch order details. Status Code: {getOrderResponse.StatusCode}");
                     }
                 }
             }
@@ -123,14 +111,12 @@ namespace SendIt
             string selectedOrder = listBox1.SelectedItem?.ToString();
             if (selectedOrder != null)
             {
-                // Assuming the format is "Order ID: {order.Id}, Nama: {order.Nama}, Berat: {order.Berat}, Alamat: {order.AlamatTujuan}"
                 string orderId = selectedOrder.Split(',')[0].Trim().Replace("Order ID: ", "");
 
                 Console.WriteLine("Selected Order ID: " + orderId);
                 Console.WriteLine("New Status: " + newStatus);
 
                 await UpdateOrderStatusAsync(orderId, newStatus);
-                LoadOrders();
             }
             else
             {
@@ -159,11 +145,13 @@ namespace SendIt
             public string Nama { get; set; }
             public int Berat { get; set; }
             public string AlamatTujuan { get; set; }
+            public string AlamatJemput { get; set; }
             public int Jarak { get; set; }
             public string NomorTelepon { get; set; }
             public string MetodePembayaran { get; set; }
             public int Harga { get; set; }
             public int IdKurir { get; set; }
+            public int IdPengirim { get; set; }
             public string Status { get; set; }
         }
 

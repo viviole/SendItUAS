@@ -26,7 +26,7 @@ namespace APISendIt.Controllers
             usersList.Add(new UsersAPI("Kurir Dua", "kurir2", "password2", "28") { Id = 2, Role = Role.Kurir });
             usersList.Add(new UsersAPI("Pengirim Satu", "pengirim1", "password3", "25") { Id = 3, Role = Role.Pengirim });
         }
-        private async Task<List<Kurir>> GetKurirListFromKurirController()
+        private async Task<List<KurirAPI>> GetKurirListFromKurirController()
         {
             var httpClient = new HttpClient();
             var response = await httpClient.GetAsync("https://localhost:7150/api/Kurir");
@@ -34,14 +34,14 @@ namespace APISendIt.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var kurirList = JsonConvert.DeserializeObject<List<Kurir>>(jsonString);
-                return kurirList ?? new List<Kurir>();
+                var kurirList = JsonConvert.DeserializeObject<List<KurirAPI>>(jsonString);
+                return kurirList ?? new List<KurirAPI>();
             }
             else
             {
                 // Penanganan jika gagal mengambil data kurir
                 // Misalnya, tampilkan pesan kesalahan atau kembalikan daftar kosong
-                return new List<Kurir>();
+                return new List<KurirAPI>();
             }
         }
 
