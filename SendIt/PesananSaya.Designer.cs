@@ -62,6 +62,7 @@
             this.label1.Location = new System.Drawing.Point(244, 31);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
+
             this.label1.Size = new System.Drawing.Size(149, 31);
             this.label1.TabIndex = 0;
             this.label1.Text = "My Orders";

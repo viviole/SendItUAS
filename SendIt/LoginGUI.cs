@@ -15,7 +15,6 @@ namespace SendIt
 {
     public partial class LoginPage : Form
     {
-        
         public LoginPage()
         {
             InitializeComponent();
@@ -30,27 +29,27 @@ namespace SendIt
             Role roleLogin = (Role)Enum.Parse(typeof(Role), selectedRole);
             loggedInUser = await auth.AunthenticateUser(inputUsername.Text, inputPassword.Text, roleLogin);
             Console.WriteLine(loggedInUser);
-            
+
             if (loggedInUser != null)
             {
-                if(roleLogin == Role.Pengirim)
+                if (roleLogin == Role.Pengirim)
                 {
                     DashboardPengirimGUI dashboardPeng = new DashboardPengirimGUI(loggedInUser);
                     dashboardPeng.Show();
                     this.Hide();
-                }else
+                }
+                else
                 {
                     KurirDetailPesanan dashboardKur = new KurirDetailPesanan();
                     dashboardKur.Show();
                     this.Hide();
                 }
-                
-            }else
+            }
+            else
             {
                 errorLabel.Text = "Invalid Username or Password";
             }
         }
-
 
         private void RegisterLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

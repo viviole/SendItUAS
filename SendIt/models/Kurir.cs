@@ -10,6 +10,7 @@ namespace SendIt.models
     public class Kurir : Users
     {
 
+
         public Kurir(string namaLengkap, string username, string password, string umur) : base(namaLengkap, username, password, umur)
         {
             Contract.Requires(!string.IsNullOrEmpty(namaLengkap));
@@ -20,5 +21,7 @@ namespace SendIt.models
 
             this.Role = Role.Kurir;
         }
+
+        public Kurir() { }
     }
 }

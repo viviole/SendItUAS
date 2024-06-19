@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.Contracts;
+using System.Security.Cryptography;
 
 namespace APISendIt.models
 {
@@ -8,16 +9,17 @@ namespace APISendIt.models
         Pengirim
 
     }
-    public class Users
+    public class UsersAPI
     {
         public int Id { get; set; }
         public string NamaLengkap { get; set; }
-        public string userName { get; set; }
-        public string password { get; set; }
-        public string umur { get; set; }
-        public Role role { get; set; }
+        public string UserName { get; set; }
+        public string PasswordHash { get; set; }
+        public string Salt { get; set; }
+        public string Umur { get; set; }
+        public Role Role { get; set; }
 
-        public Users(string namaLengkap, string username, string password, string umur)
+        public UsersAPI(string namaLengkap, string username, string password, string umur)
         {
             Contract.Requires(!string.IsNullOrEmpty(namaLengkap));
             Contract.Requires(!string.IsNullOrEmpty(username));
@@ -25,17 +27,36 @@ namespace APISendIt.models
             Contract.Requires(!string.IsNullOrEmpty(umur));
             Contract.Requires(umur.All(char.IsDigit));
             Contract.Ensures(this.NamaLengkap == namaLengkap);
-            Contract.Ensures(this.userName == username);
-            Contract.Ensures(this.password == password);
-            Contract.Ensures(this.umur == umur);
+            Contract.Ensures(this.UserName == username);
+            Contract.Ensures(this.Umur == umur);
 
-            Random random = new Random();
             this.NamaLengkap = namaLengkap;
-            this.userName = username;
-            this.umur = umur;
-            this.Id = random.Next();
-            this.password = password;
+            this.UserName = username;
+            this.Umur = umur;
+            this.Id = new Random().Next();
+
+            // Generate salt and hash the password
+            this.Salt = GenerateSalt();
+            this.PasswordHash = HashPassword(password, this.Salt);
         }
 
+        private string GenerateSalt()
+        {
+            byte[] saltBytes = new byte[16];
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(saltBytes);
+            }
+            return Convert.ToBase64String(saltBytes);
+        }
+
+        private string HashPassword(string password, string salt)
+        {
+            var pbkdf2 = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt), 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+            return Convert.ToBase64String(hash);
+        }
+
+        public UsersAPI() { }
     }
 }

@@ -3,17 +3,19 @@ using System.Diagnostics.Contracts;
 
 namespace APISendIt.models
 {
-    public class Pengirim : Users
+    public class PengirimAPI : UsersAPI
     {
-        public Pengirim(string namaLengkap, string username, string password, string usia) : base(namaLengkap, username, password, usia)
+        public PengirimAPI(string namaLengkap, string username, string password, string usia) : base(namaLengkap, username, password, usia)
         {
             Contract.Requires(!string.IsNullOrEmpty(namaLengkap));
             Contract.Requires(!string.IsNullOrEmpty(username));
             Contract.Requires(!string.IsNullOrEmpty(password));
             Contract.Requires(!string.IsNullOrEmpty(usia));
-            Contract.Ensures(this.role == Role.Pengirim);
+            Contract.Ensures(Role == Role.Pengirim);
 
-            this.role = Role.Pengirim;
+            Role = Role.Pengirim;
         }
+
+        public PengirimAPI() { }
     }
 }

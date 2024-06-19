@@ -13,7 +13,7 @@ namespace APISendIt.Controllers
     public class PengirimanController : ControllerBase
     {
         private static List<Pengiriman> pengirimanList = new List<Pengiriman>();
-        private static List<Users> usersList = new List<Users>(); // Simulasi daftar pengguna
+        private static List<UsersAPI> usersList = new List<UsersAPI>(); // Simulasi daftar pengguna
         private readonly ILogger<PengirimanController> _logger;
         private static readonly Random random = new Random(); // Tambahkan random di sini
 
@@ -22,9 +22,9 @@ namespace APISendIt.Controllers
             _logger = logger;
 
             // Contoh data pengguna
-            usersList.Add(new Users("Kurir Satu", "kurir1", "password1", "30") { Id = 1, role = Role.Kurir });
-            usersList.Add(new Users("Kurir Dua", "kurir2", "password2", "28") { Id = 2, role = Role.Kurir });
-            usersList.Add(new Users("Pengirim Satu", "pengirim1", "password3", "25") { Id = 3, role = Role.Pengirim });
+            usersList.Add(new UsersAPI("Kurir Satu", "kurir1", "password1", "30") { Id = 1, Role = Role.Kurir });
+            usersList.Add(new UsersAPI("Kurir Dua", "kurir2", "password2", "28") { Id = 2, Role = Role.Kurir });
+            usersList.Add(new UsersAPI("Pengirim Satu", "pengirim1", "password3", "25") { Id = 3, Role = Role.Pengirim });
         }
         private async Task<List<Kurir>> GetKurirListFromKurirController()
         {
@@ -83,6 +83,7 @@ namespace APISendIt.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Pengiriman pengiriman)
         {
+
             // Ambil daftar kurir dari KurirController
             var kurirList = await GetKurirListFromKurirController();
 
