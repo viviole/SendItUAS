@@ -16,10 +16,14 @@ namespace APISendIt.controllers
             new Kurir("Nizar Rasyiid", "NRasyiid", "password789", "21")
         };
 
-        [HttpGet]
+        [HttpGet]   
         public IEnumerable<Kurir> Get()
         {
-            Debug.Assert(KurirData != null, "Data Kurir tidak boleh kosong");
+            Console.WriteLine("Mengambil data semua kurir");
+            foreach (var kurir in KurirData)
+            {
+                Console.WriteLine($"Kurir ID: {kurir.Id}, Nama: {kurir.NamaLengkap}");
+            }
             return KurirData;
         }
 

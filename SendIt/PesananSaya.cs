@@ -10,16 +10,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SendIt.models;
+using static SendIt.Informasi_Pengiriman;
 
 namespace SendIt
 {
     public partial class PesananSaya : Form
     {
         private Users _loggedInUser;
+        private readonly HttpClient _httpClient;
+
         public PesananSaya(Users loggedInUser)
         {
             InitializeComponent();
             _loggedInUser = loggedInUser;
+            _httpClient = new HttpClient { BaseAddress = new Uri("https://localhost:7150/api/") };
         }
 
         private void namaPenerimaLabel_Click(object sender, EventArgs e)
@@ -39,9 +43,56 @@ namespace SendIt
 
         private void PesananSaya_Load(object sender, EventArgs e)
         {
-
+            LoadPengirimanData();
         }
+        private async void LoadPengirimanData()
+        {
+            try
+            {
+                int _idUser = _loggedInUser.Id;
+                HttpResponseMessage response = await _httpClient.GetAsync($"pengiriman?idPengirim={_idUser}");
+               
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var pengirimanList = JsonConvert.DeserializeObject<List<Pengiriman>>(jsonString);
 
+                    if (pengirimanList != null && pengirimanList.Count > 0)
+                    {
+                        // Ambil pengiriman pertama sebagai contoh
+                        var pengiriman = pengirimanList.First();
+                        if (pengiriman.IdPengirim == _idUser)
+                        {
+                            // Tampilkan data di label
+                            OrderIdLabel.Text = pengiriman.Id.ToString();
+                            namaPenerimaLabel.Text = pengiriman.Nama;
+                            alamatTujuanLabel.Text = pengiriman.AlamatTujuan;
+                            alamatJemputLabel.Text = pengiriman.AlamatJemput;
+                            nomorTelefonLabel.Text = pengiriman.NomorTelepon;
+                            BeratLabel.Text = pengiriman.Berat.ToString();
+                            JarakLabel.Text = pengiriman.Jarak.ToString();
+                            metodePembayaranLabel.Text = pengiriman.MetodePembayaran;
+                            statusBarangLabel.Text = pengiriman.Status;
+                            HargaLabel.Text = pengiriman.Harga.ToString();
+                            idKurirLabel.Text = pengiriman.IdKurir.ToString();
+                        }
+                      
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tidak ada data pengiriman ditemukan.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Gagal mengambil data pengiriman. Kode status: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Terjadi kesalahan: {ex.Message}");
+            }
+        }
         private void BeratLabel_Click(object sender, EventArgs e)
         {
 
@@ -72,6 +123,16 @@ namespace SendIt
             DashboardPengirimGUI dashboardPeng = new DashboardPengirimGUI(_loggedInUser);
             dashboardPeng.Show();
             this.Hide();
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
