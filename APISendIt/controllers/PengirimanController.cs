@@ -13,7 +13,7 @@ namespace APISendIt.Controllers
     public class PengirimanController : ControllerBase
     {
         private static List<Pengiriman> pengirimanList = new List<Pengiriman>();
-        private static List<Users> usersList = new List<Users>(); // Simulasi daftar pengguna
+        private static List<UsersAPI> usersList = new List<UsersAPI>(); // Simulasi daftar pengguna
         private readonly ILogger<PengirimanController> _logger;
         private static readonly Random random = new Random(); // Tambahkan random di sini
 
@@ -22,9 +22,27 @@ namespace APISendIt.Controllers
             _logger = logger;
 
             // Contoh data pengguna
-            usersList.Add(new Users("Kurir Satu", "kurir1", "password1", "30") { Id = 1, role = Role.Kurir });
-            usersList.Add(new Users("Kurir Dua", "kurir2", "password2", "28") { Id = 2, role = Role.Kurir });
-            usersList.Add(new Users("Pengirim Satu", "pengirim1", "password3", "25") { Id = 3, role = Role.Pengirim });
+            usersList.Add(new UsersAPI("Kurir Satu", "kurir1", "password1", "30") { Id = 1, Role = Role.Kurir });
+            usersList.Add(new UsersAPI("Kurir Dua", "kurir2", "password2", "28") { Id = 2, Role = Role.Kurir });
+            usersList.Add(new UsersAPI("Pengirim Satu", "pengirim1", "password3", "25") { Id = 3, Role = Role.Pengirim });
+        }
+        private async Task<List<Kurir>> GetKurirListFromKurirController()
+        {
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync("https://localhost:7150/api/Kurir");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var kurirList = JsonConvert.DeserializeObject<List<Kurir>>(jsonString);
+                return kurirList ?? new List<Kurir>();
+            }
+            else
+            {
+                // Penanganan jika gagal mengambil data kurir
+                // Misalnya, tampilkan pesan kesalahan atau kembalikan daftar kosong
+                return new List<Kurir>();
+            }
         }
 
         // GET: api/<PengirimanController>
@@ -62,10 +80,13 @@ namespace APISendIt.Controllers
 
         // POST api/<PengirimanController>
         [HttpPost]
-        public ActionResult Post([FromBody] Pengiriman pengiriman)
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] Pengiriman pengiriman)
         {
-            // Ambil semua kurir dengan peran 'Kurir'
-            var kurirList = usersList.Where(u => u.role == Role.Kurir).ToList();
+
+            // Ambil daftar kurir dari KurirController
+            var kurirList = await GetKurirListFromKurirController();
+
             if (!kurirList.Any())
             {
                 return BadRequest("Tidak ada kurir yang tersedia.");
@@ -73,8 +94,9 @@ namespace APISendIt.Controllers
 
             // Pilih kurir secara acak
             var randomKurir = kurirList[random.Next(kurirList.Count)];
+            pengiriman.IdKurir = randomKurir.Id;
 
-            pengiriman.IdKurir = randomKurir.Id; // Tetapkan IdKurir
+            // Tetapkan Id dan tambahkan ke pengirimanList
             pengiriman.Id = pengirimanList.Count + 1;
             pengirimanList.Add(pengiriman);
 
@@ -82,7 +104,6 @@ namespace APISendIt.Controllers
 
             return Ok();
         }
-
         // DELETE api/<PengirimanController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
