@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.kirimButton = new System.Windows.Forms.Button();
-            this.informasiButton = new System.Windows.Forms.Button();
+            this.pesananSaya = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.labelFitur = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -49,15 +49,16 @@
             this.kirimButton.UseVisualStyleBackColor = true;
             this.kirimButton.Click += new System.EventHandler(this.kirimButton_Click);
             // 
-            // informasiButton
+            // pesananSaya
             // 
-            this.informasiButton.Location = new System.Drawing.Point(497, 306);
-            this.informasiButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.informasiButton.Name = "informasiButton";
-            this.informasiButton.Size = new System.Drawing.Size(215, 63);
-            this.informasiButton.TabIndex = 1;
-            this.informasiButton.Text = "Informasi Pengiriman";
-            this.informasiButton.UseVisualStyleBackColor = true;
+            this.pesananSaya.Location = new System.Drawing.Point(497, 306);
+            this.pesananSaya.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pesananSaya.Name = "pesananSaya";
+            this.pesananSaya.Size = new System.Drawing.Size(215, 63);
+            this.pesananSaya.TabIndex = 1;
+            this.pesananSaya.Text = "Pesanan Saya";
+            this.pesananSaya.UseVisualStyleBackColor = true;
+            this.pesananSaya.Click += new System.EventHandler(this.pesananSaya_Click);
             // 
             // pictureBox2
             // 
@@ -110,9 +111,9 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelFitur);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.informasiButton);
+            this.Controls.Add(this.pesananSaya);
             this.Controls.Add(this.kirimButton);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DashboardPengirimGUI";
             this.Text = "Dashboard";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -125,7 +126,7 @@
         #endregion
 
         private System.Windows.Forms.Button kirimButton;
-        private System.Windows.Forms.Button informasiButton;
+        private System.Windows.Forms.Button pesananSaya;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label labelFitur;
         private System.Windows.Forms.PictureBox pictureBox1;

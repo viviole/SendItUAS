@@ -93,6 +93,7 @@ namespace SendIt
                             {
                                 // Reload orders after successful update
                                 LoadOrders();
+                                MessageBox.Show("Status berhasil diperbarui!");
                             }
                             else
                             {
@@ -179,7 +180,7 @@ namespace SendIt
             // Show the login form
             LoginPage loginForm = new LoginPage();
             loginForm.Show();
-
+            MessageBox.Show("Anda berhasil keluar!");
             // Close the current form
             this.Close();
         }

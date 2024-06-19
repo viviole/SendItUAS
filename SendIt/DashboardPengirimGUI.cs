@@ -45,5 +45,12 @@ namespace SendIt
             // Close the current form
             this.Close();
         }
+
+        private void pesananSaya_Click(object sender, EventArgs e)
+        {
+            PesananSaya PesananSaya = new PesananSaya(_loggedInUser);
+            PesananSaya.Show();
+            this.Hide();
+        }
     }
 }
