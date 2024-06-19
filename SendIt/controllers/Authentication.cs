@@ -16,7 +16,7 @@ namespace SendIt.controllers
 
         HttpClient client = new HttpClient();
 
-        public async Task<Users> AunthenticateUser(string username, string password, Role role)
+        public async Task<Users> AuthenticateUser(string username, string password, Role role)
         {
 
             string urlAPI;
