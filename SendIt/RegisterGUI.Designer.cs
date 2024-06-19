@@ -69,7 +69,7 @@
             // inputPassword
             // 
             this.inputPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.inputPassword.Location = new System.Drawing.Point(292, 187);
+            this.inputPassword.Location = new System.Drawing.Point(387, 187);
             this.inputPassword.Name = "inputPassword";
             this.inputPassword.Size = new System.Drawing.Size(230, 22);
             this.inputPassword.TabIndex = 17;
@@ -77,7 +77,7 @@
             // inputUsername
             // 
             this.inputUsername.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.inputUsername.Location = new System.Drawing.Point(292, 137);
+            this.inputUsername.Location = new System.Drawing.Point(387, 137);
             this.inputUsername.Name = "inputUsername";
             this.inputUsername.Size = new System.Drawing.Size(230, 22);
             this.inputUsername.TabIndex = 16;
@@ -86,7 +86,7 @@
             // 
             this.passwordLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(292, 167);
+            this.passwordLabel.Location = new System.Drawing.Point(387, 167);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(67, 16);
             this.passwordLabel.TabIndex = 15;
@@ -96,7 +96,7 @@
             // 
             this.usernameLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.usernameLabel.AutoSize = true;
-            this.usernameLabel.Location = new System.Drawing.Point(292, 118);
+            this.usernameLabel.Location = new System.Drawing.Point(387, 118);
             this.usernameLabel.Name = "usernameLabel";
             this.usernameLabel.Size = new System.Drawing.Size(70, 16);
             this.usernameLabel.TabIndex = 14;
@@ -105,7 +105,7 @@
             // registerButton
             // 
             this.registerButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.registerButton.Location = new System.Drawing.Point(424, 282);
+            this.registerButton.Location = new System.Drawing.Point(519, 282);
             this.registerButton.Name = "registerButton";
             this.registerButton.Size = new System.Drawing.Size(230, 33);
             this.registerButton.TabIndex = 19;
@@ -117,7 +117,7 @@
             // 
             this.loginLabelComp.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.loginLabelComp.AutoSize = true;
-            this.loginLabelComp.Location = new System.Drawing.Point(441, 330);
+            this.loginLabelComp.Location = new System.Drawing.Point(536, 330);
             this.loginLabelComp.Name = "loginLabelComp";
             this.loginLabelComp.Size = new System.Drawing.Size(137, 16);
             this.loginLabelComp.TabIndex = 20;
@@ -127,7 +127,7 @@
             // 
             this.loginLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.loginLabel.AutoSize = true;
-            this.loginLabel.Location = new System.Drawing.Point(584, 330);
+            this.loginLabel.Location = new System.Drawing.Point(679, 330);
             this.loginLabel.Name = "loginLabel";
             this.loginLabel.Size = new System.Drawing.Size(40, 16);
             this.loginLabel.TabIndex = 21;
@@ -138,7 +138,7 @@
             // inputNamaLengkap
             // 
             this.inputNamaLengkap.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.inputNamaLengkap.Location = new System.Drawing.Point(554, 137);
+            this.inputNamaLengkap.Location = new System.Drawing.Point(649, 137);
             this.inputNamaLengkap.Name = "inputNamaLengkap";
             this.inputNamaLengkap.Size = new System.Drawing.Size(230, 22);
             this.inputNamaLengkap.TabIndex = 23;
@@ -147,7 +147,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(554, 118);
+            this.label1.Location = new System.Drawing.Point(649, 118);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 16);
             this.label1.TabIndex = 22;
@@ -156,7 +156,7 @@
             // inputUsia
             // 
             this.inputUsia.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.inputUsia.Location = new System.Drawing.Point(554, 186);
+            this.inputUsia.Location = new System.Drawing.Point(649, 186);
             this.inputUsia.Name = "inputUsia";
             this.inputUsia.Size = new System.Drawing.Size(230, 22);
             this.inputUsia.TabIndex = 25;
@@ -165,7 +165,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(554, 167);
+            this.label2.Location = new System.Drawing.Point(649, 167);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 16);
             this.label2.TabIndex = 24;
@@ -178,7 +178,7 @@
             this.roleComboBox.Items.AddRange(new object[] {
             "Pengirim",
             "Kurir"});
-            this.roleComboBox.Location = new System.Drawing.Point(482, 236);
+            this.roleComboBox.Location = new System.Drawing.Point(577, 236);
             this.roleComboBox.Name = "roleComboBox";
             this.roleComboBox.Size = new System.Drawing.Size(121, 24);
             this.roleComboBox.TabIndex = 26;
@@ -187,7 +187,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(990, 450);
             this.Controls.Add(this.roleComboBox);
             this.Controls.Add(this.inputUsia);
             this.Controls.Add(this.label2);

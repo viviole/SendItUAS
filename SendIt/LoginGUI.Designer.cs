@@ -37,59 +37,65 @@
             this.loginButton = new System.Windows.Forms.Button();
             this.RegisterLabel = new System.Windows.Forms.LinkLabel();
             this.registerLabelComp = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.errorLabel = new System.Windows.Forms.Label();
             this.RoleComboBoxLogin = new System.Windows.Forms.ComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // usernameLabel
             // 
             this.usernameLabel.AutoSize = true;
-            this.usernameLabel.Location = new System.Drawing.Point(370, 119);
+            this.usernameLabel.Location = new System.Drawing.Point(278, 97);
+            this.usernameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(70, 16);
+            this.usernameLabel.Size = new System.Drawing.Size(55, 13);
             this.usernameLabel.TabIndex = 0;
             this.usernameLabel.Text = "Username";
             // 
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(373, 186);
+            this.passwordLabel.Location = new System.Drawing.Point(280, 151);
+            this.passwordLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(67, 16);
+            this.passwordLabel.Size = new System.Drawing.Size(53, 13);
             this.passwordLabel.TabIndex = 1;
             this.passwordLabel.Text = "Password";
             // 
             // inputUsername
             // 
-            this.inputUsername.Location = new System.Drawing.Point(370, 138);
+            this.inputUsername.Location = new System.Drawing.Point(278, 112);
+            this.inputUsername.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.inputUsername.Name = "inputUsername";
-            this.inputUsername.Size = new System.Drawing.Size(230, 22);
+            this.inputUsername.Size = new System.Drawing.Size(174, 20);
             this.inputUsername.TabIndex = 2;
             // 
             // inputPassword
             // 
-            this.inputPassword.Location = new System.Drawing.Point(373, 205);
+            this.inputPassword.Location = new System.Drawing.Point(280, 167);
+            this.inputPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.inputPassword.Name = "inputPassword";
-            this.inputPassword.Size = new System.Drawing.Size(230, 22);
+            this.inputPassword.Size = new System.Drawing.Size(174, 20);
             this.inputPassword.TabIndex = 3;
             // 
             // titleLabel
             // 
             this.titleLabel.AutoSize = true;
             this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleLabel.Location = new System.Drawing.Point(361, 48);
+            this.titleLabel.Location = new System.Drawing.Point(271, 39);
+            this.titleLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(178, 54);
+            this.titleLabel.Size = new System.Drawing.Size(146, 44);
             this.titleLabel.TabIndex = 8;
             this.titleLabel.Text = "SendIt!";
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(373, 310);
+            this.loginButton.Location = new System.Drawing.Point(280, 252);
+            this.loginButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(230, 33);
+            this.loginButton.Size = new System.Drawing.Size(172, 27);
             this.loginButton.TabIndex = 9;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
@@ -98,9 +104,10 @@
             // RegisterLabel
             // 
             this.RegisterLabel.AutoSize = true;
-            this.RegisterLabel.Location = new System.Drawing.Point(532, 358);
+            this.RegisterLabel.Location = new System.Drawing.Point(399, 291);
+            this.RegisterLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.RegisterLabel.Name = "RegisterLabel";
-            this.RegisterLabel.Size = new System.Drawing.Size(58, 16);
+            this.RegisterLabel.Size = new System.Drawing.Size(46, 13);
             this.RegisterLabel.TabIndex = 11;
             this.RegisterLabel.TabStop = true;
             this.RegisterLabel.Text = "Register";
@@ -109,29 +116,21 @@
             // registerLabelComp
             // 
             this.registerLabelComp.AutoSize = true;
-            this.registerLabelComp.Location = new System.Drawing.Point(390, 358);
+            this.registerLabelComp.Location = new System.Drawing.Point(292, 291);
+            this.registerLabelComp.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.registerLabelComp.Name = "registerLabelComp";
-            this.registerLabelComp.Size = new System.Drawing.Size(136, 16);
+            this.registerLabelComp.Size = new System.Drawing.Size(108, 13);
             this.registerLabelComp.TabIndex = 12;
             this.registerLabelComp.Text = "Belum memiliki akun?";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(82, 137);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(175, 178);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 13;
-            this.pictureBox1.TabStop = false;
             // 
             // errorLabel
             // 
             this.errorLabel.AutoSize = true;
             this.errorLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorLabel.Location = new System.Drawing.Point(390, 374);
+            this.errorLabel.Location = new System.Drawing.Point(292, 304);
+            this.errorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.errorLabel.Name = "errorLabel";
-            this.errorLabel.Size = new System.Drawing.Size(0, 16);
+            this.errorLabel.Size = new System.Drawing.Size(0, 13);
             this.errorLabel.TabIndex = 14;
             this.errorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -141,16 +140,28 @@
             this.RoleComboBoxLogin.Items.AddRange(new object[] {
             "Pengirim",
             "Kurir"});
-            this.RoleComboBoxLogin.Location = new System.Drawing.Point(479, 257);
+            this.RoleComboBoxLogin.Location = new System.Drawing.Point(359, 209);
+            this.RoleComboBoxLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RoleComboBoxLogin.Name = "RoleComboBoxLogin";
-            this.RoleComboBoxLogin.Size = new System.Drawing.Size(121, 24);
+            this.RoleComboBoxLogin.Size = new System.Drawing.Size(92, 21);
             this.RoleComboBoxLogin.TabIndex = 15;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(62, 111);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(175, 178);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 13;
+            this.pictureBox1.TabStop = false;
             // 
             // LoginPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.RoleComboBoxLogin);
             this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.pictureBox1);
@@ -162,6 +173,7 @@
             this.Controls.Add(this.inputUsername);
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.usernameLabel);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "LoginPage";
             this.Text = "Login Page";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -180,9 +192,9 @@
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.LinkLabel RegisterLabel;
         private System.Windows.Forms.Label registerLabelComp;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label errorLabel;
         private System.Windows.Forms.ComboBox RoleComboBoxLogin;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
