@@ -82,6 +82,7 @@
     <Compile Include="DashboardKurirGUI.Designer.cs">
       <DependentUpon>DashboardKurirGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="helper\PasswordHelper.cs" />
     <Compile Include="Informasi Pengiriman.cs">
       <SubType>Form</SubType>
     </Compile>

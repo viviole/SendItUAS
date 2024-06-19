@@ -43,6 +43,7 @@
             this.inputUsia = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.roleComboBox = new System.Windows.Forms.ComboBox();
+            this.errorLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -183,11 +184,20 @@
             this.roleComboBox.Size = new System.Drawing.Size(121, 24);
             this.roleComboBox.TabIndex = 26;
             // 
+            // errorLabel
+            // 
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.Location = new System.Drawing.Point(390, 258);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(0, 16);
+            this.errorLabel.TabIndex = 27;
+            // 
             // RegisterGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 450);
+            this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.roleComboBox);
             this.Controls.Add(this.inputUsia);
             this.Controls.Add(this.label2);
@@ -227,5 +237,6 @@
         private System.Windows.Forms.TextBox inputUsia;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox roleComboBox;
+        private System.Windows.Forms.Label errorLabel;
     }
 }

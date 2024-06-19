@@ -19,5 +19,6 @@ namespace SendIt.models
 
             this.Role = Role.Pengirim;
         }
+        public Pengirim() { }
     }
 }

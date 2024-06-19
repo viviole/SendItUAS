@@ -27,7 +27,7 @@ namespace SendIt
         {
             string selectedRole = RoleComboBoxLogin.SelectedItem.ToString();
             Role roleLogin = (Role)Enum.Parse(typeof(Role), selectedRole);
-            loggedInUser = await auth.AuthenticateUser(inputUsername.Text, inputPassword.Text, roleLogin);
+            loggedInUser = await auth.AunthenticateUser(inputUsername.Text, inputPassword.Text, roleLogin);
             Console.WriteLine(loggedInUser);
 
             if (loggedInUser != null)
