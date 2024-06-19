@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="models\Kurir.cs" />
     <Compile Include="models\Pengirim.cs" />
+    <Compile Include="models\Pengiriman.cs" />
     <Compile Include="models\Users.cs" />
     <Compile Include="PesananSaya.cs">
       <SubType>Form</SubType>

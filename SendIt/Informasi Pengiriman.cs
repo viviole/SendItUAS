@@ -41,6 +41,47 @@ namespace SendIt
 
         }
 
+        private async Task<List<Kurir>> GetKurirData()
+        {
+            try
+            {
+                Console.WriteLine("Mengambil data kurir...");
+
+                HttpResponseMessage response = await _httpClient.GetAsync("kurir");
+
+                Console.WriteLine($"Response status code: {response.StatusCode}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("Data kurir JSON: " + jsonString);
+
+                    var kurirList = JsonConvert.DeserializeObject<List<Kurir>>(jsonString);
+                    Console.WriteLine($"Jumlah kurir yang diambil: {kurirList.Count}");
+
+                    foreach (var kurir in kurirList)
+                    {
+                        Console.WriteLine($"Kurir ID: {kurir.Id}, Nama: {kurir.NamaLengkap}");
+                    }
+
+                    return kurirList ?? new List<Kurir>();
+                }
+                else
+                {
+                    MessageBox.Show($"Gagal mengambil data kurir. Kode status: {response.StatusCode}");
+                    return new List<Kurir>();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Terjadi kesalahan saat mengambil data kurir: {ex.Message}");
+                Console.WriteLine("Error: " + ex.Message);
+                return new List<Kurir>();
+            }
+        }
+
+
+
         private async void submitButton_Click(object sender, EventArgs e)
         {
             try
@@ -56,6 +97,7 @@ namespace SendIt
                 if (string.IsNullOrEmpty(receiverNameInput.Text) ||
                     string.IsNullOrEmpty(itemWeightInput.Text) ||
                     string.IsNullOrEmpty(receiverAddressInput.Text) ||
+                    string.IsNullOrEmpty(alamatJemputField.Text) ||
                     string.IsNullOrEmpty(itemDistanceInput.Text) ||
                     string.IsNullOrEmpty(receiverPhoneInput.Text) ||
                     comboBox1.SelectedItem == null ||
@@ -65,20 +107,42 @@ namespace SendIt
                     MessageBox.Show("Mohon isi semua kolom dengan benar.");
                     return;
                 }
+                Console.WriteLine("Mengambil data kurir...");
 
-                var pengiriman = new DataPengiriman
+                // Mengambil data kurir dari API
+                var kurirList = await GetKurirData();
+                if (kurirList.Count == 0)
+                {
+                    MessageBox.Show("Tidak ada data kurir yang tersedia.");
+                    return;
+                }
+
+                Console.WriteLine($"Jumlah kurir yang diambil: {kurirList.Count}");
+
+                // Menentukan IdKurir secara acak dari data kurir yang didapat
+                Random random = new Random();
+                int randomIndex = random.Next(0, kurirList.Count);
+                int idKurir = kurirList[randomIndex].Id;
+
+                Console.WriteLine($"ID Kurir yang dipilih: {idKurir}");
+
+                var pengiriman = new Pengiriman
                 {
                     Nama = receiverNameInput.Text,
                     Berat = berat,
                     AlamatTujuan = receiverAddressInput.Text,
+                    AlamatJemput = alamatJemputField.Text,
                     Jarak = jarak,
                     NomorTelepon = receiverPhoneInput.Text,
                     MetodePembayaran = comboBox1.SelectedItem.ToString(),
-                    Harga = _harga // Menggunakan nilai harga yang telah dihitung sebelumnya
+                    Harga = _harga, // Menggunakan nilai harga yang telah dihitung sebelumnya
+                    IdKurir = idKurir,
+                    IdPengirim = _loggedInUser.Id,
+                    Status = "On Progress" // Nilai default
                 };
 
                 var content = new StringContent(JsonConvert.SerializeObject(pengiriman), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("pengiriman", content);
+                var response = await _httpClient.PostAsync("", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -86,6 +150,7 @@ namespace SendIt
                     DashboardPengirimGUI dPengirim = new DashboardPengirimGUI(_loggedInUser);
                     dPengirim.Show();
                     this.Hide();
+                    
                 }
                 else
                 {
@@ -97,17 +162,6 @@ namespace SendIt
             {
                 MessageBox.Show($"Terjadi kesalahan: {ex.Message}");
             }
-        }
-        public class DataPengiriman
-        {
-            public int Id { get; set; }
-            public string Nama { get; set; }
-            public int Berat { get; set; }
-            public string AlamatTujuan { get; set; }
-            public int Jarak { get; set; }
-            public string NomorTelepon { get; set; }
-            public string MetodePembayaran { get; set; }
-            public int Harga { get; set; }
         }
 
         private void receiverNameInput_TextChanged(object sender, EventArgs e)
@@ -185,6 +239,16 @@ namespace SendIt
             DashboardPengirimGUI dashboardPeng = new DashboardPengirimGUI(_loggedInUser);
             dashboardPeng.Show();
             this.Hide();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void alamatJemputField_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

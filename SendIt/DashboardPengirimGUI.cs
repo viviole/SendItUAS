@@ -52,5 +52,10 @@ namespace SendIt
             PesananSaya.Show();
             this.Hide();
         }
+
+        private void DashboardPengirimGUI_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
