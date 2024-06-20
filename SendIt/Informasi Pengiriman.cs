@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SendIt.models;
+using SendIt.helper;
 
 namespace SendIt
 {
@@ -197,7 +198,7 @@ namespace SendIt
             {
                 isWeightValid = false;
             }
-            else if (berat > 20)
+            else if (!PriceCalculator.IsWeightValid(berat))
             {
                 isWeightValid = false;
                 MessageBox.Show("Berat tidak boleh lebih dari 20.");
@@ -208,7 +209,7 @@ namespace SendIt
             {
                 isDistanceValid = false;
             }
-            else if (jarak > 7)
+            else if (!PriceCalculator.IsDistanceValid(jarak))
             {
                 isDistanceValid = false;
                 MessageBox.Show("Jarak tidak boleh lebih dari 7.");
@@ -231,15 +232,13 @@ namespace SendIt
                 return;
             }
 
-            // Menghitung harga
-            int hargaDasar = 10000;
-            int biayaPerKilometer = 1000;
-            int biayaPerKilogram = 500;
-            _harga = hargaDasar + (jarak * biayaPerKilometer) + (berat * biayaPerKilogram);
+            // Menghitung harga menggunakan kelas helper
+            _harga = PriceCalculator.CalculatePrice(berat, jarak);
 
             // Menampilkan harga
             hargaField.Text = _harga.ToString();
         }
+
         private void itemWeightInput_TextChanged(object sender, EventArgs e)
         {
             CalculatePrice();

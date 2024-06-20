@@ -7,16 +7,21 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
-using System.Text.RegularExpressions;
 
 namespace SendIt.controllers
 {
     internal class Authentication
     {
-        string urlPengirim = "http://localhost:5069/api/Pengirim";
-        string urlKurir = "http://localhost:5069/api/Kurir";
+        private readonly string urlPengirim = "http://localhost:5069/api/Pengirim";
+        private readonly string urlKurir = "http://localhost:5069/api/Kurir";
 
-        HttpClient client = new HttpClient();
+        private readonly HttpClient client = new HttpClient();
+        private readonly Repository<Users> _userRepository;
+
+        public Authentication()
+        {
+            _userRepository = new Repository<Users>(client);
+        }
 
         private string HashPassword(string password, string salt)
         {
@@ -27,52 +32,33 @@ namespace SendIt.controllers
 
         public async Task<Users> AunthenticateUser(string username, string password, Role role)
         {
-
-            string urlAPI;
-
-            if (role == Role.Kurir)
-            {
-                urlAPI = urlKurir;
-            }
-            else
-            {
-                urlAPI = urlPengirim;
-            }
+            string urlAPI = role == Role.Kurir ? urlKurir : urlPengirim;
 
             try
             {
-                HttpResponseMessage response = await client.GetAsync(urlAPI);
-                Console.Write(response);
-                if (response != null && response.IsSuccessStatusCode)
-                {
-                    Users loggedInUser = null;
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-                    Users[] result = JsonConvert.DeserializeObject<Users[]>(jsonResponse);
+                List<Users> users = await _userRepository.GetAll(urlAPI);
+                Users loggedInUser = null;
 
-                    foreach (Users users in result)
+                foreach (Users user in users)
+                {
+                    string inputPasswordHash = HashPassword(password, user.Salt);
+                    if (user.UserName == username && user.PasswordHash == inputPasswordHash)
                     {
-                        string inputPasswordHash = HashPassword(password, users.Salt);
-                        if (users.UserName == username && users.PasswordHash == inputPasswordHash)
+                        if (loggedInUser != null)
                         {
-                            if (loggedInUser != null)
-                            {
-                                return null;
-                            }
-                            loggedInUser = users;
+                            return null;
                         }
+                        loggedInUser = user;
                     }
-                    return loggedInUser;
                 }
-                return null;
+                return loggedInUser;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message.ToString());
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
-
-
 
         public async Task<bool> RegisterUser(string namaLengkap, string username, string password, string umur, Role role)
         {
@@ -88,7 +74,6 @@ namespace SendIt.controllers
                     return false;
                 }
 
-                // Create user object
                 Users newUser;
                 if (role == Role.Kurir)
                 {
@@ -99,17 +84,7 @@ namespace SendIt.controllers
                     newUser = new Pengirim(namaLengkap, username, password, umur);
                 }
 
-                // Serialize object to JSON
-                string jsonContent = JsonConvert.SerializeObject(newUser);
-                Console.WriteLine("JSON Content: " + jsonContent);
-
-                // Send POST request
-                StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(urlAPI, content);
-
-                string responseContent = await response.Content.ReadAsStringAsync();
-
-                return response.IsSuccessStatusCode;
+                return await _userRepository.Add(urlAPI, newUser);
             }
             catch (Exception ex)
             {
@@ -122,27 +97,8 @@ namespace SendIt.controllers
         {
             string urlAPI = role == Role.Kurir ? urlKurir : urlPengirim;
 
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(urlAPI);
-                if (response.IsSuccessStatusCode)
-                {
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-                    Users[] result = JsonConvert.DeserializeObject<Users[]>(jsonResponse);
-                    List<string> usernames = result.Select(u => u.UserName).ToList();
-                    return usernames;
-                }
-                else
-                {
-                    Console.WriteLine("Failed to retrieve users from API");
-                    return new List<string>();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception while fetching users: " + ex.Message);
-                return new List<string>();
-            }
+            List<Users> users = await _userRepository.GetAll(urlAPI);
+            return users.Select(u => u.UserName).ToList();
         }
     }
 }

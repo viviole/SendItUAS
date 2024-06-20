@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="controllers\Authentication.cs" />
+    <Compile Include="controllers\Repository.cs" />
     <Compile Include="controllers\UserController.cs" />
     <Compile Include="DashboardPengirimGUI.cs">
       <SubType>Form</SubType>
@@ -83,6 +84,7 @@
       <DependentUpon>DashboardKurirGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="helper\PasswordHelper.cs" />
+    <Compile Include="helper\PriceCalculator.cs" />
     <Compile Include="Informasi Pengiriman.cs">
       <SubType>Form</SubType>
     </Compile>
